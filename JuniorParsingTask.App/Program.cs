@@ -16,18 +16,14 @@ Console.WriteLine("Reader");
 Read();
 
 Console.WriteLine("TEST");
-for (int i = 0; i < tree.Root.Children.Count; i++)
-{
-    Node z = tree.Root.Children[i];
-    Console.WriteLine(z.Value);
+    Node z = tree.Root.Children[0];
+Console.WriteLine("z = " + z + " z.Value= " + z.Value +" " + " tree.Root.Children[0] = " + tree.Root.Children[0] + " tree.Root.Children[0].Velue = "+ tree.Root.Children[0].Value);
+    Console.WriteLine(TryGetNode("aaa",out z));
 
-    Console.WriteLine(TryGetNode("xyz",out z));
-    tree.Root.Children[i] = z;
-    Console.WriteLine(tree.Root.Children[i].Value);
-    //Console.WriteLine("[" + tree.Root.Children[i].Value + "]");
-}
+    //tree.Root.Children[i] = z;
 
-Tree tree1;
+    Console.WriteLine(tree.Root.Children[0].Value);
+    Console.WriteLine("[tree.Root.Children[0].Value=" + tree.Root.Children[0].Value + "]");
 
 Console.WriteLine("TEST");
 
@@ -61,21 +57,70 @@ void Read()
 
 bool TryGetNode(string value, out Node node)
 {
-    node = new Node("root");
-
+    node = tree.Root.Children[0];
+    Console.WriteLine("POCZATEK TryGetNode: node = " + node +" " + node.Value + " Value = " + value);
+    Console.WriteLine("tree.Root.Children[].Value = " + tree.Root.Children[0].Value);
 
     for (int i = 0; i < tree.Root.Children.Count; i++)
     {
+        Console.WriteLine("Przed zmianą: [" + tree.Root.Children[i].Value + "]");
         if (tree.Root.Children[i].Value == value)
         {
-            return true;
+            Console.WriteLine("tree.Root.Children[i].Value == value || "+ tree.Root.Children[i].Value + " == " + value);
+            //return true;
         }
         else
         {
-            node = new Node("null");
-            return false;
+           // node = new Node("null");
+           // return false;
+        }
+        for (int j = 0; j < tree.Root.Children[i].Children.Count; j++)
+        {
+            Console.WriteLine("\tPrzed zmianą: [" + tree.Root.Children[i].Children[j].Value + "]");
+            if (tree.Root.Children[i].Children[j].Value == value)
+            {
+               // return true;
+            }
+            else
+            {
+               // node = new Node("null");
+               // return false;
+            }
+            Console.WriteLine("\t Po zmianie: [" + tree.Root.Children[i].Children[j].Value + "]");
+            for (int k = 0; k < tree.Root.Children[i].Children[j].Children.Count; k++)
+            {
+                Console.WriteLine("\t\tPrzed zmianą: [" + tree.Root.Children[i].Children[j].Children[k].Value + " ] ");
+                if (tree.Root.Children[i].Children[j].Children[k].Value == value)
+                {
+                   // return true;
+                }
+                else
+                {
+                    //node = new Node("null");
+                    //return false;
+                }
+                Console.WriteLine("\t\tPo zmianie: [" + tree.Root.Children[i].Children[j].Children[k].Value + " ] ");
+                for (int l = 0; l < tree.Root.Children[i].Children[j].Children[k].Children.Count; l++)
+                {
+                    Console.WriteLine("\t\t\t Przed zmianą: #[" + tree.Root.Children[i].Children[j].Children[k].Children[l].Value + "]");
+                    if (tree.Root.Children[i].Children[j].Children[k].Children[l].Value == value)
+                    {
+                       // return true;
+                    }
+                    else
+                    {
+                        //node = new Node("null");
+                        //return false;
+                    }
+                    Console.WriteLine("\t\t\t Po zmianie: #[" + tree.Root.Children[i].Children[j].Children[k].Children[l].Value+"]");
+                }
+
+            }
         }
     }
+
+
+    Console.WriteLine("KONIEC TryGetNode: node = " + node + " " + node.Value);
     return false;
 }
 Console.ReadKey();
